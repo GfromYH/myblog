@@ -2,7 +2,7 @@
 个人博客 Vuecli3+element-ui+Node+express+MongoDB
 
 ## 操作
-···
+
 git clone ...
 
 cnpm install
@@ -14,7 +14,7 @@ cnpm install
 cd ..
 
 cnpm run dev
-···
+
 
 ## 功能模块
 - 登陆注册功能

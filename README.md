@@ -3,6 +3,7 @@
 
 ## 操作
 
+~~~
 git clone ...
 
 cnpm install
@@ -14,10 +15,11 @@ cnpm install
 cd ..
 
 cnpm run dev
+~~~
 
 
 ## 功能模块
-- 登陆注册功能
+- 登陆注册功能,增加了分页功能
 
 - 个人博客增加删除修改查询功能
 

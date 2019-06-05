@@ -6,7 +6,7 @@
             <el-button href="javascript:;" icon="el-icon-plus" class="btn" @click="addArticle">新建文章哟！</el-button>
         </div>
         <div class="content_lists ">
-            <div class="lists_item" v-for="(articleList,index) in articleLists" :key="index">
+            <div class="lists_item" v-for="(articleList,index) in tableData" :key="index">
                 <div class="list_item_container">
                     <div class="item-thumb"></div>
                     <a class="item-desc" href="javascript:;" @click="lookShowInfo(articleList)">
@@ -41,6 +41,21 @@
             </div>
 
         </div>
+        <el-row>
+            <el-col :span="24">
+                <div class="pagination">
+                    <el-pagination
+                            :page-sizes="paginations.page_sizes"
+                            :page-size="paginations.page_size"
+                            :layout="paginations.layout"
+                            :total="paginations.total"
+                            :current-page.sync='paginations.page_index'
+                            @current-change='handleCurrentChange'
+                            @size-change='handleSizeChange'>
+                    </el-pagination>
+                </div>
+            </el-col>
+        </el-row>
     </section>
     <footerBar></footerBar>
 </div>
@@ -53,7 +68,17 @@
         name: "index",
         data(){
             return{
-                articleLists:[]
+                tableData: [],
+                allTableData: [],
+                filterTableData: [],
+                articleLists:[],
+                paginations: {
+                    page_index: 1, // 当前位于哪页
+                    total: 0, // 总数
+                    page_size: 9, // 1页显示多少条
+                    page_sizes: [9, 18, 27, 36], //每页显示多少条
+                    layout: "total, sizes, prev, pager, next, jumper" // 翻页属性
+                },
             }
         },
         created(){
@@ -63,10 +88,14 @@
             getDatas() {
                 this.$axios.get('/api/article/articleList')
                     .then(response => {
+                        this.allTableData = response.data;
                         this.articleLists = response.data
                         // console.log(this.articleLists)
                         // console.log(typeof this.articleLists[0].date)
-                    })
+                        // 设置分页数据
+                    }).then(res=>{
+                   return this.setPaginations();
+                })
             },
             //新建文章
             addArticle() {
@@ -105,7 +134,48 @@
                             });
                         });
 
+            },
+        //    分页
+            //当前页面
+            handleCurrentChange(page){
+                let sortNum=this.paginations.page_size*(page-1)
+                let table=this.allTableData.filter((item,index)=>{
+                    return index>=sortNum
+                })
+                //设置当前页的数据
+                this.tableData=table.filter((item,index)=>{
+                    return index<this.paginations.page_size
+                })
+                if (document.body.scrollTop) {
+                    document.body.scrollTop = 0
+                }else{
+                    document.documentElement.scrollTop = 0
+                }
+            },
+            handleSizeChange(page_size){
+                //切换size
+                this.paginations.page_index=1;
+                this.paginations.page_size=page_size;
+                this.tableData=this.allTableData.filter((item,index)=>{
+                    return index<page_size
+                })
+                if (document.body.scrollTop) {
+                    document.body.scrollTop = 0
+                }else{
+                    document.documentElement.scrollTop = 0
+                }
+            },
+            setPaginations(){
+                //总页数
+                this.paginations.total=this.allTableData.length;
+                this.paginations.page_index=1;
+                this.paginations.page_size=9;
+                // 设置默认分页数据
+                this.tableData = this.allTableData.filter((item, index) => {
+                    return index < this.paginations.page_size;
+                });
             }
+
         },
         components:{
             navbar,
@@ -331,6 +401,18 @@
     .article_info .article_info_label  .tag_margin {
         padding: 2px 5px;
 
+    }
+    /*分页*/
+    .pagination{
+        padding: 20px 20px;
+        margin: 0 auto;
+        text-align: center;
+    }
+    @media (max-width: 760px){
+        .pagination{
+            padding: 20px 0;
+            overflow: auto;
+        }
     }
     /*====================尾部============================*/
 

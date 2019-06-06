@@ -20,7 +20,7 @@
                         </div>
                     </div>
                 </div>
-
+                <el-button round icon="el-icon-arrow-up" style="background-color:#6464cc;color: #fff" @click="goToTop"></el-button>
             </div>
         </div>
     </footer>
@@ -28,7 +28,16 @@
 
 <script>
     export default {
-        name: "footerbar"
+        name: "footerbar",
+        methods:{
+            goToTop(){
+                if (document.body.scrollTop) {
+                    document.body.scrollTop=0
+                }else{
+                    document.documentElement.scrollTop=0
+                }
+            }
+        }
     }
 </script>
 

@@ -1,6 +1,7 @@
 const express=require('express')
 const bodyParser=require('body-parser')
 const mongoose=require('mongoose')
+const passport=require('passport')
 
 const app=express()
 
@@ -14,6 +15,11 @@ mongoose.connect('mongodb://localhost:27017/blog',{useNewUrlParser:true})
 //配置body-parser中间件处理post请求
 app.use(bodyParser.urlencoded({extended:false}))
 app.use(bodyParser.json())
+
+//passport初始化
+app.use(passport.initialize());
+
+require("./config/passport")(passport)
 
 app.use('/api/user',user)
 app.use('/api/article',article)

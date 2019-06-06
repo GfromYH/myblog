@@ -1,5 +1,7 @@
 const express=require('express')
 const Article=require('../../model/Article')
+const passport=require('passport')
+
 
 // 配置路由容器
 const router=express.Router()
@@ -7,7 +9,7 @@ router.get('/test',(req,res)=>{
     res.send('success')
 })
 //获取所有的文章页面
-router.get('/articleList',(req,res)=>{
+router.get('/articleList',passport.authenticate("jwt",{session:false}),(req,res)=>{
     Article.find()
         .then(article=>{
             res.json(article)
@@ -18,7 +20,7 @@ router.get('/articleList',(req,res)=>{
 })
 
 //文章保存
-router.post('/newArticle',(req,res)=>{
+router.post('/newArticle',passport.authenticate("jwt",{session:false}),(req,res)=>{
      new Article({
          title:req.body.title,
          content:req.body.content,
@@ -34,7 +36,7 @@ router.post('/newArticle',(req,res)=>{
 })
 
 //单个文章
-router.get('/articleDetail/:id',(req,res)=>{
+router.get('/articleDetail/:id',passport.authenticate("jwt",{session:false}),(req,res)=>{
     Article.findOne({
         _id:req.params.id
     })
@@ -49,7 +51,7 @@ router.get('/articleDetail/:id',(req,res)=>{
 })
 
 //编辑单个文章
-router.post('/updateArticle/:id',(req,res)=>{
+router.post('/updateArticle/:id',passport.authenticate("jwt",{session:false}),(req,res)=>{
         let articleFields={}
         if(req.body.title){articleFields.title=req.body.title}
         if(req.body.gist){articleFields.gist=req.body.gist}
@@ -62,7 +64,7 @@ router.post('/updateArticle/:id',(req,res)=>{
         })
 })
 // 文章删除
-router.delete('/deleteArticle/:id', function (req, res) {
+router.delete('/deleteArticle/:id',passport.authenticate("jwt",{session:false}), function (req, res) {
     Article.findOneAndRemove({_id: req.params.id})
         .then(article=>{
             res.send(article)

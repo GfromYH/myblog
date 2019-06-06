@@ -73,6 +73,7 @@
                                     type:'success',
                                     message:'注册成功'
                                 })
+                                this.$router.push("/login")
                             })
                     } else {
                         console.log('error submit!!');

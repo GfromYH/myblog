@@ -11,6 +11,7 @@
             <a href="javascript:;" class="navbar_search" @click="$router.push('/searchArticle')">
                 <i class="el-icon-search"></i>
             </a>
+
         </div>
     </header>
 

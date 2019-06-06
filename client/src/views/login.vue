@@ -57,6 +57,9 @@
                                     type: 'success',
                                     message: '登陆成功'
                                 })
+                                const {token}=res.data
+                                //存储到localStorage
+                                localStorage.setItem("eleToken",token)
                                 this.$router.push('/index')
                             })
                     } else {

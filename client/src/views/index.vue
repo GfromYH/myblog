@@ -8,7 +8,7 @@
         <div class="content_lists ">
             <div class="lists_item" v-for="(articleList,index) in tableData" :key="index">
                 <div class="list_item_container">
-                    <div class="item-thumb"></div>
+                    <div class="item-thumb" ></div>
                     <a class="item-desc" href="javascript:;" @click="lookShowInfo(articleList)">
                         <p>{{articleList.gist|gistformDate}}</p>
                     </a>
@@ -45,6 +45,7 @@
             <el-col :span="24">
                 <div class="pagination">
                     <el-pagination
+                            v-if="paginations.total>0"
                             :page-sizes="paginations.page_sizes"
                             :page-size="paginations.page_size"
                             :layout="paginations.layout"
@@ -90,11 +91,11 @@
                     .then(response => {
                         this.allTableData = response.data;
                         this.articleLists = response.data
-                        // console.log(this.articleLists)
                         // console.log(typeof this.articleLists[0].date)
                         // 设置分页数据
                     }).then(res=>{
                    return this.setPaginations();
+
                 })
             },
             //新建文章
@@ -177,6 +178,9 @@
             }
 
         },
+        computed:{
+
+        },
         components:{
             navbar,
             footerBar
@@ -225,7 +229,12 @@
     }
     @keyframes item_thumb{
         0%{
-
+            opacity: 1;
+            transform: scale(1,1);
+        }
+        100%{
+            opacity: .8;
+            transform: scale(1.3,1.3);
         }
     }
 #content::before{
@@ -310,8 +319,21 @@
         background-color: rgba(0,0,0,.5);
     }
     .list_item_container:hover .item-thumb{
+        animation: item_thumb .8s ease-in-out alternate forwards;
+
+    }
+    .list_item_container:hover .item-thumb{
         /*background: rgba(0,0,0,.1);*/
     }
+    /*.item-desc::before{*/
+        /*position: absolute;*/
+        /*content: "";*/
+        /*width: 100%;*/
+        /*height: 100%;*/
+        /*background: rgba(92,92,92,0.3);*/
+        /*left: 0;*/
+        /*top: 0;*/
+    /*}*/
     .item-desc{
         position: absolute;
         top: 0;
@@ -355,7 +377,7 @@
 .item-label .item-title a{
     font-size: 17px;
     line-height: 1.6;
-    color: #333;
+    color: #313131 ;
     word-break: break-all;
     text-decoration: none;
 }

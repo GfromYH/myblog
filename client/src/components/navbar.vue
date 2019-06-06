@@ -5,10 +5,10 @@
                 GG的小屋
             </a>
             <div class="menu">
-                <a href="javascript:;">Web</a>
+                <a href="javascript:;" @click="$router.push('/index')">Web</a>
                 <a href="javascript:;">关于GG</a>
             </div>
-            <a href="javascript:;" class="navbar_search">
+            <a href="javascript:;" class="navbar_search" @click="$router.push('/searchArticle')">
                 <i class="el-icon-search"></i>
             </a>
         </div>

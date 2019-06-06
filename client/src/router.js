@@ -6,6 +6,7 @@ import login from './views/login'
 import showArticleInfo from './views/showArticleInfo'
 import lookArticleInfo from './views/lookArticleInfo'
 import editArticleInfo from './views/editArticleInfo'
+import searchArticle from './views/searchArticle'
 import {get} from './assets/js/getAndSetLocalStorage'
 import notFound from './views/notFound'
 
@@ -53,6 +54,11 @@ const router= new Router({
       path: '/editArticleInfo',
       name: 'editArticleInfo',
       component: editArticleInfo
+    },
+    {
+      path: '/searchArticle',
+      name: 'searchArticle',
+      component: searchArticle
     },
     {
       path: '*',

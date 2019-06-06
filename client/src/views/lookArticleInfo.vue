@@ -1,7 +1,8 @@
 <template>
     <div class="lookArticle">
         <navbar></navbar>
-            <div class="article_wrap">
+
+        <div class="article_wrap">
                 <div class="article_title article_detail_title">{{article.title}}</div>
                 <div class="article_info">
                     <span class="article_info_date">发表于：{{article.date | dateForm}}</span>
@@ -10,11 +11,14 @@
                         <el-tag v-else class="tag_margin" type="primary" v-for="(label,index) in article.labels" :key="index" >{{label}}</el-tag>
                     </span>
                 </div>
-                <div class="article_detail_content" v-html="compiledMarkdown()"></div>
+                <div class="article_detail_content" >
+                    <div class="article_detail_content_info" v-html="compiledMarkdown()"></div>
+                </div>
                 <div class="btn-froup">
                     <el-button type="primary" icon="el-icon-back" class="btn" circle size="small" title="返回" @click="editInfo"></el-button>
                 </div>
             </div>
+
         <footerBar></footerBar>
     </div>
 </template>
@@ -116,11 +120,17 @@
         padding: 10px 20px;
     }
     .article_detail_content {
-        text-align: left;
-        padding: 30px 60px;
+        width: 100%;
+        height: 100%;
+
+    }
+    .article_detail_content_info{
+        margin: 0 auto;
         font-size: 18px;
-        min-height: 300px;
         text-indent: 2em;
+        padding: 20px 20px;
+        width: 940px;
+        min-height: 300px;
     }
     .btn-froup{
         width: 100%;

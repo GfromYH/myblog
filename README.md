@@ -31,5 +31,39 @@ cnpm run dev
 
 ### 功能展示
  + 登录
- 
+
+
+
+![1559818010329](http://github.com/GfromYH/myblog/raw/master/screenshot/login.png)
+
++ 注册
+
+![1559818010329](http://github.com/GfromYH/myblog/raw/master/screenshot/register.png)
+
++ 首页index
+
+![1559818010329](http://github.com/GfromYH/myblog/raw/master/screenshot/index1.png)
+
+![1559818010329](http://github.com/GfromYH/myblog/raw/master/screenshot/index2.png)
+
++ 查询
+
+![1559818010329](http://github.com/GfromYH/myblog/raw/master/screenshot/search.png)
+
++ 查看
+
+![1559818010329](http://github.com/GfromYH/myblog/raw/master/screenshot/look.png)
+
++ 编辑
+
+![1559818010329](http://github.com/GfromYH/myblog/raw/master/screenshot/edit.png)
+
++ 新建
+
+![1559818010329](http://github.com/GfromYH/myblog/raw/master/screenshot/newArticle.png)
+
++ 删除
+
+![1559818010329](http://github.com/GfromYH/myblog/raw/master/screenshot/delete.png)
+
 ## 未完待续。。。

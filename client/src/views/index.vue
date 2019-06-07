@@ -2,6 +2,7 @@
 <div>
     <navbar></navbar>
     <section id="content" class="" >
+        <scrolltop></scrolltop>
         <div class="addArticle">
             <el-button href="javascript:;" icon="el-icon-plus" class="btn" @click="addArticle">新建文章哟！</el-button>
         </div>
@@ -65,6 +66,7 @@
 <script>
     import navbar from '../components/navbar'
     import footerBar from '../components/footer'
+    import scrolltop from  '../components/scrolltop'
     export default {
         name: "index",
         data(){
@@ -183,7 +185,8 @@
         },
         components:{
             navbar,
-            footerBar
+            footerBar,
+            scrolltop
         },
         filters:{
             gistformDate(value){
@@ -248,12 +251,12 @@
         padding: 80px 20px 0;
         box-sizing: border-box;
     }
+
     .addArticle{
         position: relative;
         width: 100%;
         min-height: 60px;
         left: 0;
-        top: 0;
     }
     .addArticle .btn{
         display: block;
@@ -273,6 +276,7 @@
         transform: translateX(-50%);
     }
     .addArticle .btn:hover{
+
         background-color: #282828;
         color: #f3f3f3;
         border: 0.2rem solid #282828;
@@ -281,6 +285,7 @@
     .content_lists{
         position: relative;
         overflow: hidden;
+
 
     }
     .lists_item{

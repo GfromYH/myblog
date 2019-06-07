@@ -2,6 +2,7 @@
     <div class="editInfo">
         <navbar></navbar>
         <div class="editAbove">
+            <scrolltop></scrolltop>
             <div class="edit_wrap">
                 <div class="return_button">
                     <el-button icon="arrow-left" size="small" @click="$router.go(-1)" type="primary" style="color: #fff;">返回</el-button>
@@ -58,6 +59,8 @@
 <script>
     import navbar from '../components/navbar'
     import footerBar from '../components/footer'
+    import scrolltop from  '../components/scrolltop'
+
     import _ from 'lodash'
     import marked from 'marked'
     import hightlight from 'highlight.js'
@@ -199,7 +202,8 @@
         },
         components:{
             navbar,
-            footerBar
+            footerBar,
+            scrolltop
         },
     }
 </script>

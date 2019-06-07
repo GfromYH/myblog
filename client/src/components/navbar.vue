@@ -28,6 +28,8 @@
         width: 100%;
         background-color: #F2F3EF;
         box-shadow: 0 1px 5px rgba(0,0,0,.1);
+
+
     }
     .container{
         position: relative;

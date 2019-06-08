@@ -19,6 +19,11 @@
                 </div>
             </el-form>
         </section>
+        <div id="imgs">
+            <div id="bg1" class="bg "></div>
+            <div id="bg2" class="bg fade-in"></div>
+            <div id="bg3" class="bg "></div>
+        </div>
     </div>
 </template>
 
@@ -90,6 +95,11 @@
         padding: 25px;
         text-align: center;
         border-radius: 5px;
+        z-index: 999;
+        opacity: .8;
+    }
+    .form_container:hover{
+        opacity: 1;
     }
     .form_container .manage_title .title{
         font-family: "Microsoft YaHei";
@@ -120,4 +130,21 @@
     .tiparea p a:hover{
         color: #0DB6CC;
     }
+    .bg{
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        opacity: .7;
+    }
+    #bg1{
+        background: url("../assets/4.jpg") no-repeat center center/cover;
+    }
+    /*#bg2{*/
+        /*background: url("../assets/beijing.jpg") no-repeat center center/cover;*/
+    /*}*/
+    /*#bg3{*/
+        /*background: url("../assets/beijing2.jpg") no-repeat center center/cover;*/
+    /*}*/
 </style>

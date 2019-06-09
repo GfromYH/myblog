@@ -24,19 +24,21 @@ cnpm run dev
 - 个人博客***增加删除修改查询搜索***功能
 
 - 支持markdown格式
+
+- emmm还想实现验证码登录（-.-）
 ### 校验
 - 通过jwt进行token签发，用passport-jwt passport进行token验证
 - 采用路由守卫判断token是否失效，失效则跳转login页面
 
 
 ### 功能展示
- + 登录
+ + 登录 背景可以自动切换 
 
 
 
 ![1559818010329](screenshot/login.png)
 
-+ 注册
++ 注册 背景可以自动切换 
 
 ![1559818010329](screenshot/register.png)
 

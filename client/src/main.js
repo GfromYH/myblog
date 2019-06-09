@@ -4,6 +4,7 @@ import router from './router'
 import store from './store'
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
+import Velocity from 'velocity-animate'
 import axios from './http'
 
 
@@ -12,6 +13,7 @@ Vue.config.productionTip = false
 Vue.prototype.$axios=axios
 
 Vue.use(ElementUI);
+// Vue.use(Velocity)
 new Vue({
   router,
   store,

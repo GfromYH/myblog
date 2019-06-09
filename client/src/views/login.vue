@@ -19,16 +19,13 @@
                 </div>
             </el-form>
         </section>
-        <div id="imgs">
-            <div id="bg1" class="bg "></div>
-            <div id="bg2" class="bg fade-in"></div>
-            <div id="bg3" class="bg "></div>
-        </div>
+        <bg></bg>
     </div>
 </template>
 
 <script>
     import {set} from '../assets/js/getAndSetLocalStorage'
+    import bg from '../components/bg'
     export default {
         name: "login",
         data(){
@@ -48,6 +45,9 @@
                     ]
                 }
             }
+        },
+        components:{
+            bg
         },
         methods:{
             submitForm(formName) {
@@ -96,7 +96,7 @@
         text-align: center;
         border-radius: 5px;
         z-index: 999;
-        opacity: .8;
+        opacity: .5;
     }
     .form_container:hover{
         opacity: 1;
@@ -130,21 +130,6 @@
     .tiparea p a:hover{
         color: #0DB6CC;
     }
-    .bg{
-        position: absolute;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        opacity: .7;
-    }
-    #bg1{
-        background: url("../assets/4.jpg") no-repeat center center/cover;
-    }
-    /*#bg2{*/
-        /*background: url("../assets/beijing.jpg") no-repeat center center/cover;*/
-    /*}*/
-    /*#bg3{*/
-        /*background: url("../assets/beijing2.jpg") no-repeat center center/cover;*/
-    /*}*/
+
+
 </style>

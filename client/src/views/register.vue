@@ -1,5 +1,6 @@
 <template>
     <div class="register">
+        <bg></bg>
         <section class="form_container">
             <div class="manage_title">
                 <span class="title">个人博客</span>
@@ -26,6 +27,8 @@
 </template>
 
 <script>
+    import bg from '../components/bg'
+
     export default {
         name: "register",
 
@@ -60,6 +63,9 @@
                 }
             }
 
+        },
+        components:{
+            bg
         },
         methods:{
             submitForm(formName){
@@ -103,7 +109,12 @@
         padding: 25px;
         text-align: center;
         border-radius: 5px;
+        opacity: .5;
+        z-index: 999;
     }
+.form_container:hover{
+    opacity: 1;
+}
 .form_container .manage_title .title{
     font-family: "Microsoft YaHei";
     font-weight: bold;

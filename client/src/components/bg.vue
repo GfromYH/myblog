@@ -42,13 +42,13 @@
             },
             beforeEnter(el){
                 el.style.opacity=0;
-                el.style.transform="scale(1,1)"
+                el.style.transform="scale(1.1)"
             },
             enter(el,done){
                 let vm=this
                 Velocity(el,{
                     opacity:1,
-                    scale:1.2
+                    scale: 1
                 },{
                     duration:6000,
                     complete(){
@@ -61,9 +61,9 @@
                 let vm=this
                 Velocity(el,{
                     opacity:0,
-                    scale:1
+                    scale:1.2
                 },{
-                    duration:4000,
+                    duration:6000,
                     complete(){
                         done()
                         vm.showImg=vm.imgs[vm.showImgIndex===5?vm.showImgIndex=0:vm.showImgIndex+=1].imgURL
@@ -80,7 +80,7 @@
         position: fixed;
         left: 0;
         top:0;
-        background-color: rgb(180, 180, 180);
+        /*background-color: rgb(180, 180, 180);*/
         height: 100%;
         width: 100%;
         min-width: 1000px;
@@ -105,7 +105,7 @@
         height: 100%;
         background-color: #444;
         z-index: 32;
-        opacity: 0.8;
+        opacity: 0.3;
         filter:progid:DXImageTransform.Microsoft.Alpha(Opacity=10);
         position: absolute;
         top: 0;

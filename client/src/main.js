@@ -8,6 +8,8 @@ import Velocity from 'velocity-animate'
 import axios from './http'
 
 
+
+
 Vue.config.productionTip = false
 
 Vue.prototype.$axios=axios

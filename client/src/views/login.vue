@@ -11,6 +11,18 @@
                 <el-form-item label="密码" prop="password">
                     <el-input type="password" v-model="loginUser.password" ></el-input>
                 </el-form-item>
+                <el-form-item label="验证码" prop="capthe">
+                    <el-row>
+                        <el-col :span="12">
+                            <el-input type="text" placeholder="验证码" id="capthe1" v-model="loginUser.capthe" ref="capthe"></el-input>
+                        </el-col>
+                        <el-col :span="12">
+                            <span id="canvas" v-if="verifyCode.options">{{verifyCode.options.code}}</span>
+                        </el-col>
+                    </el-row>
+                </el-form-item>
+
+
                 <el-form-item>
                     <el-button type="primary" @click="submitForm('loginForm')" class="btn">登录</el-button>
                 </el-form-item>
@@ -26,13 +38,20 @@
 <script>
     import {set} from '../assets/js/getAndSetLocalStorage'
     import bg from '../components/bg'
+    import GVerify from '../getGverify'
     export default {
         name: "login",
+        mounted(){
+            this.$nextTick(()=>{
+                this.verifyCode = new GVerify('capthe1')
+            })
+        },
         data(){
             return{
                 loginUser:{
                     username:'',
-                    password:''
+                    password:'',
+                    capthe:''
                 },
                 rules:{
                     username:[
@@ -42,8 +61,13 @@
                     password:[
                         {required:true,message:'密码不能为空',trigger:'blur'},
                         { min: 2, max: 15, message: "长度在 2 到 15 个字符", trigger: "blur" }
+                    ],
+                    capthe:[
+                        {required:true,message:'验证码不能为空',trigger:'blur'},
+                        { min: 2, max: 15, message: "长度在 2 到 5 个字符", trigger: "blur" }
                     ]
-                }
+                },
+                verifyCode:{}
             }
         },
         components:{
@@ -54,24 +78,28 @@
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
                         //注册
-                        this.$axios.post('/api/user/login', this.loginUser
-                        )
-                            .then(res => {
-                                //注册成功
-                                this.$message({
-                                    type: 'success',
-                                    message: '登陆成功'
+                        // console.log(this.verifyCode.validate(this.loginUser.capthe))
+                        if (this.verifyCode.validate(this.loginUser.capthe)){
+                            return this.$axios.post('/api/user/login',this.loginUser)
+                                .then(res => {
+                                    //注册成功
+                                    this.$message({
+                                        type: 'success',
+                                        message: '登陆成功'
+                                    })
+                                    const {token}=res.data
+                                    //存储到localStorage
+                                    localStorage.setItem("eleToken",token)
+                                    this.$router.push('/index')
                                 })
-                                const {token}=res.data
-                                //存储到localStorage
-                                localStorage.setItem("eleToken",token)
-                                this.$router.push('/index')
-                            })
-                    } else {
-                        console.log('error submit!!');
-                        return false;
+                        } else {
+                            this.$message.error('验证码输入错误');
+                            this.loginUser.capthe=''
+                            return false;
+                        }
                     }
                 });
+
             }
         }
     }
@@ -98,6 +126,15 @@
         z-index: 999;
         opacity: .5;
     }
+    #canvas{
+        display: inline-block;
+        width: 100%;
+        min-height: 40px;
+        background-color: #c8c8c8;
+        box-sizing: border-box;
+        margin-left: 5px;
+        border-radius: 10px;
+    }
     .form_container:hover{
         opacity: 1;
     }
@@ -115,6 +152,13 @@
         box-shadow: 0px 5px 10px #cccc;
 
     }
+    /*.loginForm .capthe{*/
+        /*padding: 10px 20px;*/
+    /*}*/
+    /*.loginForm .capthe label{*/
+        /*display: inline-block;*/
+        /*padding: 10px 0;*/
+    /*}*/
     .loginForm .btn{
         width: 100%;
     }

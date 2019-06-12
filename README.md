@@ -25,7 +25,9 @@ cnpm run dev
 
 - 支持markdown格式
 
-- emmm还想实现验证码登录（-.-）
+- 实现了验证码登录，不过验证码背景暂时不知道怎么没渲染上去？w(ﾟДﾟ)w
+
+- 下一步想实现用less预处理器以及webpack压缩我的工程，不过感觉暂时会有点困难=-= o(*≧▽≦)ツ┏━┓
 ### 校验
 - 通过jwt进行token签发，用passport-jwt passport进行token验证
 - 采用路由守卫判断token是否失效，失效则跳转login页面

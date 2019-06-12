@@ -15,6 +15,16 @@
                 <el-form-item label="确认密码" prop="password2">
                     <el-input type="password" v-model="registerUser.password2" ></el-input>
                 </el-form-item>
+                <el-form-item label="验证码" prop="capthe">
+                    <el-row>
+                        <el-col :span="12">
+                            <el-input type="text" placeholder="验证码" id="capthe1" v-model="registerUser.capthe" ref="capthe"></el-input>
+                        </el-col>
+                        <el-col :span="12">
+                            <span id="canvas" v-if="verifyCode.options">{{verifyCode.options.code}}</span>
+                        </el-col>
+                    </el-row>
+                </el-form-item>
                 <el-form-item>
                     <el-button type="primary" @click="submitForm('registerForm')" class="btn">注册</el-button>
                 </el-form-item>
@@ -28,10 +38,15 @@
 
 <script>
     import bg from '../components/bg'
+    import GVerify from '../getGverify'
 
     export default {
         name: "register",
-
+        mounted(){
+            this.$nextTick(()=>{
+                this.verifyCode = new GVerify('capthe1')
+            })
+        },
         data(){
             let validatePass2 = (rule, value, callback) => {
                 if (value === '') {
@@ -46,7 +61,8 @@
                 registerUser:{
                     username:'',
                     password:'',
-                    password2:''
+                    password2:'',
+                    capthe:''
                 },
                 rules:{
                     username:[
@@ -60,6 +76,9 @@
                     password2:[
                         { validator: validatePass2, trigger: 'blur' }
                     ]
+                },
+                verifyCode:{
+
                 }
             }
 
@@ -72,18 +91,25 @@
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
                         //注册
-                        this.$axios.post('/api/user/register',this.registerUser)
-                            .then(res=>{
-                                //注册成功
-                                this.$message({
-                                    type:'success',
-                                    message:'注册成功'
+                        // console.log(this.verifyCode.validate(this.loginUser.capthe))
+                        if (this.verifyCode.validate(this.registerUser.capthe)){
+                            return this.$axios.post('/api/user/register',this.registerUser)
+                                .then(res => {
+                                    //注册成功
+                                    this.$message({
+                                        type: 'success',
+                                        message: '注册成功'
+                                    })
+                                    const {token}=res.data
+                                    //存储到localStorage
+                                    localStorage.setItem("eleToken",token)
+                                    this.$router.push('/login')
                                 })
-                                this.$router.push("/login")
-                            })
-                    } else {
-                        console.log('error submit!!');
-                        return false;
+                        } else {
+                            this.$message.error('验证码输入错误');
+                            this.loginUser.capthe=''
+                            return false;
+                        }
                     }
                 });
             }
@@ -114,6 +140,15 @@
     }
 .form_container:hover{
     opacity: 1;
+}
+#canvas{
+    display: inline-block;
+    width: 100%;
+    min-height: 40px;
+    background-color: #c8c8c8;
+    box-sizing: border-box;
+    margin-left: 5px;
+    border-radius: 10px;
 }
 .form_container .manage_title .title{
     font-family: "Microsoft YaHei";

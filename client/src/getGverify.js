@@ -55,20 +55,20 @@ const getGVerify=function(id) {
             this.options.code = ''
             let canvas = document.getElementById(this.options.canvasId)
             if (canvas.getContext) {
-                 window.ctx = canvas.getContext('2d')
+                 var ctx = canvas.getContext('2d')
             }
             ctx.textBaseline = 'middle'
 
             ctx.fillStyle = randomColor(180, 240)
             ctx.fillRect(0, 0, this.options.width, this.options.height)
-
+            let txtArr;
             if (this.options.type === 'blend') {
                 //判断验证码类型
-                var txtArr = this.options.numArr.concat(this.options.letterArr)
+                 txtArr = this.options.numArr.concat(this.options.letterArr)
             } else if (this.options.type === 'number') {
-                var txtArr = this.options.numArr
+                 txtArr = this.options.numArr
             } else {
-                var txtArr = this.options.letterArr
+                 txtArr = this.options.letterArr
             }
 
             for (let i = 1; i <= 4; i++) {

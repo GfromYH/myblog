@@ -21,7 +21,7 @@
                             <el-input type="text" placeholder="验证码" id="capthe1" v-model="registerUser.capthe" ref="capthe"></el-input>
                         </el-col>
                         <el-col :span="12">
-                            <span id="canvas" v-if="verifyCode.options">{{verifyCode.options.code}}</span>
+                            <span id="canvas" v-if="verifyCode.options" @click="verifyCode.refresh()">{{verifyCode.options.code}}</span>
                         </el-col>
                     </el-row>
                 </el-form-item>
@@ -149,6 +149,8 @@
     box-sizing: border-box;
     margin-left: 5px;
     border-radius: 10px;
+    letter-spacing: 10px;
+    cursor: pointer;
 }
 .form_container .manage_title .title{
     font-family: "Microsoft YaHei";

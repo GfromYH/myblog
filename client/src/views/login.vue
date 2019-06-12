@@ -16,12 +16,11 @@
                         <el-col :span="12">
                             <el-input type="text" placeholder="验证码" id="capthe1" v-model="loginUser.capthe" ref="capthe"></el-input>
                         </el-col>
-                        <el-col :span="12">
-                            <span id="canvas" v-if="verifyCode.options">{{verifyCode.options.code}}</span>
+                        <el-col :span="12" class="capyhe">
+                            <span id="canvas" v-if="verifyCode.options" @click="verifyCode.refresh()" ref="canvas">{{verifyCode.options.code}}</span>
                         </el-col>
                     </el-row>
                 </el-form-item>
-
 
                 <el-form-item>
                     <el-button type="primary" @click="submitForm('loginForm')" class="btn">登录</el-button>
@@ -44,6 +43,8 @@
         mounted(){
             this.$nextTick(()=>{
                 this.verifyCode = new GVerify('capthe1')
+                // this.verifyCode._init()
+                // console.log(this.verifyCode.refresh)
             })
         },
         data(){
@@ -94,13 +95,27 @@
                                 })
                         } else {
                             this.$message.error('验证码输入错误');
+                            this.verifyCode.refresh()
                             this.loginUser.capthe=''
                             return false;
                         }
                     }
                 });
 
-            }
+            },
+            //想将初始化的验证码拆分一个一个的span调整样式实现字头i颜色彩虹话
+            // init(){
+            //     let code = this.verifyCode.options.code
+            //     const capyhe=document.querySelector(".capyhe")
+            //     // canvas.innerHTML=[...code].map((letters)=>`<span>${letters}</span>`).join('')
+            //     capyhe.innerHTML=[...code].map((letters)=>`<span>${letters}</span>`).join('')
+            //     const spans=document.querySelectorAll(".capyhe span")
+            //     spans[0].style.display="inline-block"
+            //     spans[0].style.padding="10px 10px"
+            //     spans[0].style.color='red'
+            //     console.log(typeof spans.item(0).style)
+            //
+            // }
         }
     }
 </script>
@@ -134,6 +149,8 @@
         box-sizing: border-box;
         margin-left: 5px;
         border-radius: 10px;
+        letter-spacing: 10px;
+        cursor: pointer;
     }
     .form_container:hover{
         opacity: 1;
@@ -152,13 +169,6 @@
         box-shadow: 0px 5px 10px #cccc;
 
     }
-    /*.loginForm .capthe{*/
-        /*padding: 10px 20px;*/
-    /*}*/
-    /*.loginForm .capthe label{*/
-        /*display: inline-block;*/
-        /*padding: 10px 0;*/
-    /*}*/
     .loginForm .btn{
         width: 100%;
     }

@@ -4,7 +4,7 @@
 ## 操作
 
 ~~~
-git clone ...
+git clone https://github.com/GfromYH/myblog.git
 
 cnpm install
 

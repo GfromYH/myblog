@@ -232,7 +232,12 @@
 }
 .tag_wrap span{
     display: inline-block;
-    padding: 10px 20px 10px 0;
+    padding: 0 10px;
+    text-align: center;
+    vertical-align: middle;
+}
+.tag_wrap span:nth-child(1){
+    padding: 10px 10px;
 }
 .markdown_input{
     float: left;

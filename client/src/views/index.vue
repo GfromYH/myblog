@@ -9,7 +9,7 @@
         <div class="content_lists ">
             <div class="lists_item" v-for="(articleList,index) in tableData" :key="index">
                 <div class="list_item_container">
-                    <div class="item-thumb" ></div>
+                    <div class="item-thumb" ref="imgs" ></div>
                     <a class="item-desc" href="javascript:;" @click="lookShowInfo(articleList)">
                         <p>{{articleList.gist|gistformDate}}</p>
                     </a>
@@ -87,7 +87,32 @@
         created(){
             this.getDatas()
         },
+        mounted(){
+          this.$nextTick(()=>{
+              this.getImgs()
+          })
+        },
         methods: {
+            //获取图片
+            getImgs(){
+              this.$axios.get('static/data/images.json')
+                  .then(res=>{
+                      // return console.log(res.data)
+                      let len =res.data.length;
+                      if (this.$refs.imgs) {
+                          this.$refs.imgs.map( img => {
+                              let imgIndex =  this.getRandomIntImg(len)
+                              console.log(res.data[imgIndex].imgURL)
+                             return img.style.backgroundImage = `url(${res.data[imgIndex].imgURL})`
+                          });
+                      }
+
+                  })
+            },
+            //随机图片
+            getRandomIntImg(max){
+              return Math.floor(Math.random() * Math.floor(max) )
+            },
             getDatas() {
                 this.$axios.get('/api/article/articleList')
                     .then(response => {
@@ -189,9 +214,12 @@
             scrolltop
         },
         filters:{
+
+            //过滤内容
             gistformDate(value){
                 return value.substr(0,30)+'...'
             },
+            //过滤时间
             dateForm(time){
                 let dateTime=JSON.parse(time)
                 let date = new Date(dateTime);
@@ -316,8 +344,14 @@
         box-shadow: 0 1px 4px rgba(0,0,0,.04);
     }
     .item-thumb{
+        display: block;
         min-height: 250px;
-        background: url("../assets/1.jpg") no-repeat  center center/cover;
+        /*background: url("../../public/static/images/1.jpg") no-repeat  center center/cover;*/
+        background-image: url("../../public/static/images/1.jpg");
+        background-size: cover;
+        background-position: center center;
+        background-repeat: no-repeat;
+
     }
     .list_item_container:hover .item-desc{
         animation: item_desc .5s ease-in-out alternate forwards;

@@ -72,4 +72,8 @@ cnpm run dev
 
 ![1559818010329](screenshot/delete.png)
 
++ 404页面
+
+![1559818010329](screenshot/404.png)
+
 ## 未完待续。。。

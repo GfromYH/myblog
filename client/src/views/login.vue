@@ -14,7 +14,7 @@
                 <el-form-item label="验证码" prop="capthe">
                     <el-row>
                         <el-col :span="12">
-                            <el-input type="text" placeholder="验证码" id="capthe1" v-model="loginUser.capthe" ref="capthe"></el-input>
+                            <el-input type="text" placeholder="验证码" id="capthe1" v-model="loginUser.capthe" ref="capthe" @keyup.native.13="submitForm('loginForm')"></el-input>
                         </el-col>
                         <el-col :span="12" class="capyhe">
                             <span id="canvas" v-if="verifyCode.options" @click="verifyCode.refresh()" ref="canvas">{{verifyCode.options.code}}</span>
@@ -75,6 +75,9 @@
             bg
         },
         methods:{
+            // test(){
+            //     console.log("你好啊")
+            // },
             submitForm(formName) {
                 this.$refs[formName].validate((valid) => {
                     if (valid) {

@@ -18,7 +18,7 @@
                 <el-form-item label="验证码" prop="capthe">
                     <el-row>
                         <el-col :span="12">
-                            <el-input type="text" placeholder="验证码" id="capthe1" v-model="registerUser.capthe" ref="capthe"></el-input>
+                            <el-input type="text" placeholder="验证码" id="capthe1" v-model="registerUser.capthe" ref="capthe" @keyup.native.enter="submitForm('registerForm')"></el-input>
                         </el-col>
                         <el-col :span="12">
                             <span id="canvas" v-if="verifyCode.options" @click="verifyCode.refresh()">{{verifyCode.options.code}}</span>

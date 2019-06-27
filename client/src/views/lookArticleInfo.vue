@@ -7,7 +7,7 @@
                 <div class="article_info">
                     <span class="article_info_date">发表于：{{article.date | dateForm}}</span>
                     <span class="article_info_label">标签：
-                        <span v-if="!article.labels.length">未分类</span>
+                        <span v-if="!article.labels">未分类</span>
                         <el-tag v-else class="tag_margin" type="primary" v-for="(label,index) in article.labels" :key="index" >{{label}}</el-tag>
                     </span>
                 </div>
@@ -15,7 +15,7 @@
                     <div class="article_detail_content_info" v-html="compiledMarkdown()"></div>
                 </div>
                 <div class="btn-froup">
-                    <el-button type="primary" icon="el-icon-back" class="btn" circle size="small" title="返回" @click="editInfo"></el-button>
+                    <el-button type="primary" icon="el-icon-back" class="btn" circle size="small" title="返回" @click="$router.go(-1)"></el-button>
                 </div>
             </div>
 
@@ -68,27 +68,29 @@
             footerBar
         },
         filters:{
-            dateForm(time){
-                let dateTime=JSON.parse(time);
-                let date = new Date(dateTime);
+            dateForm(time) {
+                if (time !== undefined) {
+                    let dateTime = JSON.parse(time);
+                    let date = new Date(dateTime);
 
-                let year = date.getFullYear(),
-                    month = date.getMonth() + 1,//月份是从0开始的
-                    day = date.getDate(),
-                    hour = date.getHours(),
-                    min = date.getMinutes(),
-                    sec = date.getSeconds();
-                hour=String.prototype.padStart.call(hour,2,'0')
-                min=String.prototype.padStart.call(min,2,'0')
-                sec=String.prototype.padStart.call(sec,2,'0')
+                    let year = date.getFullYear(),
+                        month = date.getMonth() + 1,//月份是从0开始的
+                        day = date.getDate(),
+                        hour = date.getHours(),
+                        min = date.getMinutes(),
+                        sec = date.getSeconds();
+                    hour = String.prototype.padStart.call(hour, 2, '0')
+                    min = String.prototype.padStart.call(min, 2, '0')
+                    sec = String.prototype.padStart.call(sec, 2, '0')
 
-                let timeNew = year + '-' +
-                    month + '-' +
-                    day + ' ' +
-                    hour + ':' +
-                    min + ':' +
-                    sec;
-                return timeNew;
+                    let timeNew = year + '-' +
+                        month + '-' +
+                        day + ' ' +
+                        hour + ':' +
+                        min + ':' +
+                        sec;
+                    return timeNew;
+                }
             }
         }
     }
@@ -137,6 +139,7 @@
         position: relative;
         height: 50px;
         overflow: hidden;
+
     }
     .btn-froup .btn{
         /*margin: 0 auto;*/
@@ -145,4 +148,5 @@
         left: 50%;
         transform: translateX(-50%);
     }
+
 </style>

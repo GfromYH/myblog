@@ -37,6 +37,8 @@
     export default {
         name: "lookArticleInfo",
         mounted(){
+        },
+        activated(){
             this.getArticle()
         },
         data(){

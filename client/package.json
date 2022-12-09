@@ -14,7 +14,7 @@
     "highlight.js": "^9.15.8",
     "loadsh": "^0.0.4",
     "marked": "^0.6.2",
-    "qs": "^6.7.0",
+    "qs": "^6.5.3",
     "velocity-animate": "^1.5.2",
     "vue": "^2.6.10",
     "vue-router": "^3.0.3",
